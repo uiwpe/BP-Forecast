@@ -1,27 +1,38 @@
 {
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "newProjectRoot": "projects",
   "projects": {
-    "client-forecast": {
+    "bp-forecast": {
       "projectType": "application",
-      "root": "apps/client/forecast",
-      "sourceRoot": "apps/client/forecast/src",
-      "prefix": "bridger-pay",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "bp",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/client/forecast",
-            "index": "apps/client/forecast/src/index.html",
-            "main": "apps/client/forecast/src/main.ts",
-            "polyfills": "apps/client/forecast/src/polyfills.ts",
-            "tsConfig": "apps/client/forecast/tsconfig.app.json",
+            "outputPath": "dist/bp-forecast",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "apps/client/forecast/src/favicon.ico",
-              "apps/client/forecast/src/assets"
+              "src/favicon.ico",
+              "src/assets"
             ],
-            "styles": ["apps/client/forecast/src/styles.scss"],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -40,8 +51,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/client/forecast/src/environments/environment.ts",
-                  "with": "apps/client/forecast/src/environments/environment.prod.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -61,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "client-forecast:build:production"
+              "browserTarget": "bp-forecast:build:production"
             },
             "development": {
-              "browserTarget": "client-forecast:build:development"
+              "browserTarget": "bp-forecast:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,56 +83,29 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "client-forecast:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/client/forecast/src/**/*.ts",
-              "apps/client/forecast/src/**/*.html"
-            ]
+            "browserTarget": "bp-forecast:build"
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/client/forecast"],
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "jestConfig": "apps/client/forecast/jest.config.js",
-            "passWithNoTests": true
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
           }
         }
-      },
-      "tags": []
-    },
-    "client-forecast-e2e": {
-      "root": "apps/client-forecast-e2e",
-      "sourceRoot": "apps/client-forecast-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/client-forecast-e2e/cypress.json",
-            "devServerTarget": "client-forecast:serve:development"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "client-forecast:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["apps/client-forecast-e2e/**/*.{js,ts}"]
-          }
-        }
-      },
-      "tags": [],
-      "implicitDependencies": ["client-forecast"]
+      }
     }
-  }
+  },
+  "defaultProject": "bp-forecast"
 }
