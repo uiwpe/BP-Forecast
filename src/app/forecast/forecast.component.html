@@ -1,0 +1,45 @@
+<div class="forecast">
+  <h3>
+    {{city?.name | titlecase}} {{selectedScope | titlecase}} Weather Forecast
+  </h3>
+
+  <div class="search">
+    <input type="search"
+           (keyup.enter)="onSearch(searchQuery)"
+           [class.empty]="!searchQuery.length"
+           [(ngModel)]="searchQuery">
+    <div class="scopes">
+      <div class="scope" *ngFor="let scope of scopes">
+        <input type="radio"
+               name="scope"
+               [id]="scope"
+               class="scope-radio"
+               [value]="scope"
+               (ngModelChange)="changeScope(scope)"
+               [ngModel]="selectedScope">
+        <label [for]="scope" class="scope-label">
+          {{scope | titlecase}}
+        </label>
+      </div>
+    </div>
+    <button (click)="onSearch(searchQuery)"
+            [disabled]="!searchQuery.length">
+      Search
+    </button>
+  </div>
+  <div class="result" *ngFor="let forecast of forecasts" [ngSwitch]="selectedScope">
+    <div class="city-name column">
+      {{forecast?.name}}
+    </div>
+    <div class="cast column"
+         *ngFor="let col of forecast | scope:selectedScope | hourly:selectedScope"
+         [title]="col.dt * 1000 | date:'fullTime'">
+      <ng-container *ngSwitchCase="'daily'">
+        {{col.temp.day}}°C
+      </ng-container>
+      <ng-container *ngSwitchCase="'hourly'">
+        {{col.temp}}°C
+      </ng-container>
+    </div>
+  </div>
+</div>

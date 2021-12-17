@@ -1,0 +1,17 @@
+@mixin src($path, $family) {
+  src: url("~assets/fonts/#{$path}/#{$family}.ttf") format("truetype");
+}
+
+@mixin google-font($path, $family, $weight) {
+  @font-face {
+    font-family: $family;
+    @include src($path, $family);
+    font-weight: $weight;
+    font-style: normal;
+    font-stretch: normal;
+  }
+}
+
+@include google-font(Roboto, "Roboto-Light", 300);
+@include google-font(Roboto, "Roboto-Regular", 400);
+@include google-font(Roboto, "Roboto-Bold", 700);

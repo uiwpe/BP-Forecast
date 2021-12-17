@@ -1,0 +1,33 @@
+.scopes {
+  width: auto;
+  min-width: 160px;
+  display: inline-flex;
+  justify-content: stretch;
+}
+
+.scope {
+  width: 100%;
+  max-width: 84px;
+
+  &-label {
+    width: 100%;
+    height: $control-height;
+    line-height: $control-height;
+    display: flex;
+    justify-content: center;
+    border: 1px solid $input-disabled;
+    box-sizing: border-box;
+    color: $button-disabled;
+  }
+
+  &-radio {
+    display: none;
+
+    &:checked {
+      & ~ .scope-label {
+        border-color: $primary;
+        color: $primary;
+      }
+    }
+  }
+}

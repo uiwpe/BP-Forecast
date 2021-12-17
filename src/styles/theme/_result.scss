@@ -1,0 +1,8 @@
+.result {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  .column {
+    border: 1px solid #99D2FA;
+  }
+}
