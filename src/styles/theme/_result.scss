@@ -2,7 +2,23 @@
   width: 100%;
   display: inline-flex;
   justify-content: space-between;
+  margin: 12px 0;
+
   .column {
     border: 1px solid #99D2FA;
   }
+}
+
+.results {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.city-name {
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
 }

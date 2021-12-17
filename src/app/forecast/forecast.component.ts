@@ -8,6 +8,7 @@ import { Forecast, SCOPE, SearchResponse, SearchService } from './services/searc
 })
 export class ForecastComponent implements OnInit {
   searchQuery: string = 'Lviv'
+  loading!: boolean
 
   city!: SearchResponse
   selectedScope: SCOPE = SCOPE.hourly
@@ -23,6 +24,7 @@ export class ForecastComponent implements OnInit {
 
   onSearch(city: string) {
     if (this.service.cachedCity !== city) {
+      this.loading = true
       this.service.search(city)
         .subscribe((result: SearchResponse[]) => {
           if (result.length) {
@@ -44,6 +46,7 @@ export class ForecastComponent implements OnInit {
     const exists = this.forecasts.findIndex(f => f.name === name) !== -1
 
     if (exists) {
+      this.loading = false
       return
     }
 
@@ -51,6 +54,7 @@ export class ForecastComponent implements OnInit {
       .subscribe((forecast) => {
         if (forecast) {
           this.forecasts = [...this.forecasts, {...forecast, name}]
+          this.loading = false
         }
       })
   }

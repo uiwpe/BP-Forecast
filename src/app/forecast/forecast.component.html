@@ -23,23 +23,25 @@
       </div>
     </div>
     <button (click)="onSearch(searchQuery)"
-            [disabled]="!searchQuery.length">
+            [disabled]="!searchQuery.length || loading">
       Search
     </button>
   </div>
-  <div class="result" *ngFor="let forecast of forecasts" [ngSwitch]="selectedScope">
+  <div class="results" *ngFor="let forecast of forecasts" [ngSwitch]="selectedScope">
     <div class="city-name column">
       {{forecast?.name}}
     </div>
-    <div class="cast column"
-         *ngFor="let col of forecast | scope:selectedScope | hourly:selectedScope"
-         [title]="col.dt * 1000 | date:'fullTime'">
-      <ng-container *ngSwitchCase="'daily'">
-        {{col.temp.day}}°C
-      </ng-container>
-      <ng-container *ngSwitchCase="'hourly'">
-        {{col.temp}}°C
-      </ng-container>
+    <div class="result">
+      <div class="cast column"
+           *ngFor="let col of forecast | scope:selectedScope | hourly:selectedScope"
+           [title]="col.dt * 1000 | date:'medium'">
+        <ng-container *ngSwitchCase="'daily'">
+          {{col.temp.day | number:'1.0-0'}}°C
+        </ng-container>
+        <ng-container *ngSwitchCase="'hourly'">
+          {{col.temp | number:'1.0-0'}}°C
+        </ng-container>
+      </div>
     </div>
   </div>
 </div>
